@@ -1,4 +1,5 @@
 {% load static %}
+{% load spurl %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,8 +24,105 @@
             </div>
         </div>
     </nav>
+    <br>
     <div class="container-fluid">
-        <h1>Привет мир!</h1>
+        <form class="row g-3" method="POST" action="create/" id="tg">
+            {% csrf_token %}
+            <div class="col-md-2">
+                <label for="inputToken" class="form-label">Ключ</label>
+                <input type="text" class="form-control" id="inputToken" name="token">
+            </div>
+            <div class="col-md-2">
+                <label for="inputStartDate" class="form-label">Дата выдачи</label>
+                <input type="date" class="form-control" id="inputStartDate" name="start_date">
+            </div>
+            <div class="col-md-5">
+                <label for="inputCounterparty" class="form-label">Контрагент</label>
+                <input type="text" class="form-control" id="inputCounterparty" name="counterparty">
+            </div>
+            <div class="col-md-2">
+                <label for="inputEndDate" class="form-label">Дата окончания</label>
+                <input type="date" class="form-control" id="inputEndDate" name="end_date">
+            </div>
+            <div class="col-md-2">
+                <label for="inputTechSupport" class="form-label">Тех. поддержка до</label>
+                <input type="date" class="form-control" id="inputTechSupport" name="tech_support">
+            </div>
+            <div class="col-md-2">
+                <label for="inputNumberOfActivations" class="form-label">Количество активаций</label>
+                <input type="number" class="form-control" id="inputNumberOfActivations" name="number_of_activations">
+            </div>
+            <div class="col-md-4">
+                <label for="inputNotes" class="form-label">Примечания</label>
+                <input type="text" class="form-control" id="inputNotes" name="notes">
+            </div>
+            <div class="col-12">
+                <input type="submit" name="sun" class="btn btn-outline-primary contact-form__button" value="Сохранить" >
+            </div>
+        </form>
+        <br>
+        <div style="text-align: center;"><h1>Ключи активации</h1></div>
+        {% if tokens.count > 0 %}
+        <div class="table-responsive">
+            <table id="tag" class="table table-bordered table-sm align-middle table-hover">
+                <thead class="align-middle table-primary">
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Ключ</th>
+                        <th scope="col">Дата выдачи</th>
+                        <th scope="col">Контрагент</th>
+                        <th scope="col">Дата окончания</th>
+                        <th scope="col">Тех. поддержка до</th>
+                        <th scope="col">Количество активаций</th>
+                        <th scope="col">Количество активированных устройств</th>
+                        <th scope="col">Примечания</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                    <tbody>
+                    {% for token in page_m %}
+                        <tr>
+                            <td scope="row">{{ token.id }}</td>
+                            <td>{{ token.token }}</td>
+                            <td>{{ token.start_date }}</td>
+                            <td>{{ token.counterparty }}</td>
+                            <td>{{ token.end_date }}</td>
+                            <td>{{ token.tech_support }}</td>
+                            <td>{{ token.number_of_activations }}</td>
+                            <td>{{ token.number_of_activated_devices }}</td>
+                            <td>{{ token.notes }}</td>
+                            <td>
+                                <div class="btn-group-vertical btn-group-sm" role="group" aria-label="Basic outlined example">
+                                    <a class="btn btn-outline-primary" href="edit/{{tasks.id}}">Изменить</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+            </table>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    {% if page_m.has_previous %}
+                        <li class="page-item"><a class="page-link" href="{% spurl query=request.GET set_query='page=1'%}">&laquo; Первая</a></li>
+                    {% endif %}
+
+                    {% for pa in page_m.paginator.page_range %}
+                        {% if pa == page_m.number %}
+                            <li class="page-item"><a class="page-link active" href="{% spurl query=request.GET set_query='page={{ pa }}'%}">{{ pa }}</a></li>
+                        {% elif pa >= page_m.number|add:-2 and pa <= page_m.number|add:2 %}
+                            <li class="page-item"><a class="page-link" href="{% spurl query=request.GET set_query='page={{ pa }}'%}">{{ pa }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_m.has_next %}
+                        <li class="page-item"><a class="page-link" href="{% spurl query=request.GET set_query='page={{ page_m.paginator.num_pages }}'%}">Последняя &raquo;</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    {% else %}
+        <h1>Ключи активации не созданы</h1>
+    {% endif %}
     </div>    
     {% else %}
             <p>Войдите в систему</p>

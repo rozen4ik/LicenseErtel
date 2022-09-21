@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path("", views.index),
+    path("create/", views.create),
 ]
 
 # urlpatterns = format_suffix_patterns(urlpatterns)

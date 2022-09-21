@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'license_server.apps.LicenseServerConfig',
-    'crispy_forms'
+    'crispy_forms',
+    'spurl'
 ]
 
 MIDDLEWARE = [
