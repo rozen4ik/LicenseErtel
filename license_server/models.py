@@ -1,7 +1,8 @@
 from django.db import models
 
+
 # Create your models here.
-class Tokes(models.Model):
+class TokenErtel(models.Model):
     token = models.CharField(max_length=150)
     start_date = models.DateField()
     counterparty = models.TextField()
@@ -17,15 +18,3 @@ class Tokes(models.Model):
     class Meta:
         verbose_name = "ключ"
         verbose_name_plural = 'ключи'
-
-class Device(models.Model):
-    token = models.CharField(max_length=150)
-    imei_code = models.CharField(max_length=250)
-    notes = models.TextField(default="")
-
-    def __str__(self):
-        return f"id:{self.id} Ключ: {self.token} IMEI код: {self.imei_code} Примечания: {self.notes}"
-
-    class Meta:
-        verbose_name = "устройство"
-        verbose_name_plural = 'устройства'

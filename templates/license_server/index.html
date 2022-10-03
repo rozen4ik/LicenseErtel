@@ -76,7 +76,6 @@
                         <th scope="col">Количество активаций</th>
                         <th scope="col">Количество активированных устройств</th>
                         <th scope="col">Примечания</th>
-                        <th scope="col"></th>
                     </tr>
                 </thead>
                     <tbody>
@@ -91,11 +90,6 @@
                             <td>{{ token.number_of_activations }}</td>
                             <td>{{ token.number_of_activated_devices }}</td>
                             <td>{{ token.notes }}</td>
-                            <td>
-                                <div class="btn-group-vertical btn-group-sm" role="group" aria-label="Basic outlined example">
-                                    <a class="btn btn-outline-primary" href="edit/{{tasks.id}}">Изменить</a>
-                                </div>
-                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
