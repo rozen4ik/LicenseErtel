@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from license_server.models import TokenErtel
 from django.core.paginator import Paginator
-from django.http import HttpResponseRedirect, HttpResponseNotFound
-
+from django.http import HttpResponseRedirect
 from service import Service
+
 
 service = Service()
 
