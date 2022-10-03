@@ -41,8 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'license_server.apps.LicenseServerConfig',
+    'api.apps.ApiConfig',
     'crispy_forms',
-    'spurl'
+    'spurl',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -130,6 +132,19 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static/"),
 ]
+
+# Для работы с API
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
